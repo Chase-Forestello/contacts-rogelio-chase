@@ -1,7 +1,7 @@
 package ContactManager;
 
 
-import java.nio.file.StandardOpenOption;
+import java.util.List;
 import java.util.Objects;
 
 public class ContactsListMain {
@@ -13,27 +13,24 @@ public class ContactsListMain {
 
         ContactsList contactList = new ContactsList();
 
-        String test = """
-                John|210-123-3333
-                Chase|210-8879341
-                    
-                """;
-        Contact.createFromString(test);
-        System.out.println(test.lines().count());
-        for (int i = 1; i < test.lines().count() ; i++) {
-            System.out.println(Contact.createFromString(test));
-        }
+// Messing with reading data from file...
+//        String test = """
+//                John|210-123-3333
+//                Chase|210-8879341
+//                """;
+//        Contact.createFromString(test);
+//        System.out.println(test.lines().count());
+//        List<String> testing = test.lines().toList();
+//        for (int i = 0; i <testing.size() ; i++) {
+//            contactList.addContact(Contact.createFromString(testing.get(i)));
+//        }
 
 
         Contact Chase = new Contact("Chase", "210-887-9341");
         Contact John = new Contact("John", "210-123-4567");
-//        System.out.println(Contact.createFromString("Chase"));
         contactList.addContact(Chase);
         contactList.addContact(John);
-//        contact.printContacts();
-//        contact.removeContact("John");
-//        System.out.println(contactList.getContactByName("Chase"));
-
+        contactList.printContacts();
         int choice = INVALID_CHOICE;
         while (!Objects.equals(choice, EXIT_CHOICE)) {
             printMenu();

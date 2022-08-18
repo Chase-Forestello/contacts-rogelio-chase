@@ -51,6 +51,7 @@ public class ContactsList {
 
     public Contact getContactByName (String contactName){
         int index = getIndexByContactName(contactName);
+
         if (index > -1) {
             return contacts.get(index);
         }
