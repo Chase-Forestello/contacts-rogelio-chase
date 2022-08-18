@@ -9,7 +9,7 @@ public class Contact {
         this.name = name;
     }
     public static Contact createFromString(String contactString) {
-        String [] parts = contactString.split("|");
+        String [] parts = contactString.split("\\|");
         return new Contact(parts[0].trim(), parts[1].trim());
     }
 
