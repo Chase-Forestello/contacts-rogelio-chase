@@ -1,8 +1,17 @@
-.idea
-*.iml
-.DS_Store
 keys.js
 private_constants.js
 config.js
 application.properties
 .env
+
+# MacOS
+.DS_Store
+
+# IntelliJ
+.idea/*
+*.iml
+
+# Compiled output
+*.class
+out/*
+
