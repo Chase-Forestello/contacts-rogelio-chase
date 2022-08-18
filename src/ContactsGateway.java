@@ -42,8 +42,8 @@ public class ContactsGateway {
 
         // 3. make items from the items strings and put them in the groceryList
         for(String contactsString : contactsStrings) {
-            ContactsList contacts = ContactsList.createFromString(contactsString);
-            list.addGroceryItem(contacts);
+            Contacts contacts = Contacts.createFromString(contactsString);
+            list.addContact(contacts);
         }
         return list;
     }
