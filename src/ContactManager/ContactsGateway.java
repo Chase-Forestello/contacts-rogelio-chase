@@ -1,3 +1,5 @@
+package ContactManager;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,7 +44,7 @@ public class ContactsGateway {
 
         // 3. make items from the items strings and put them in the groceryList
         for(String contactsString : contactsStrings) {
-            Contacts contacts = Contacts.createFromString(contactsString);
+            Contact contacts = Contact.createFromString(contactsString);
             list.addContact(contacts);
         }
         return list;

@@ -1,7 +1,7 @@
 // Incomplete - Java II - File I/O (grocery list applications)
 // Complete - Java II - Exceptions and Error Handling (CLI could be improved)
 // Complete - Java II - OOP Input Exercise
-package util;
+package ContactManager;
 
 import java.util.Scanner;
 

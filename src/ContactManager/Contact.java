@@ -1,14 +1,16 @@
-public class Contacts {
+package ContactManager;
+
+public class Contact {
     private String name;
     private String phoneNumber;
 
-    public Contacts(String name, String phoneNumber) {
+    public Contact(String name, String phoneNumber) {
         this.phoneNumber = phoneNumber;
         this.name = name;
     }
-    public static Contacts createFromString(String contactString) {
+    public static Contact createFromString(String contactString) {
         String [] parts = contactString.split("|");
-        return new Contacts(parts[0].trim(), parts[1].trim());
+        return new Contact(parts[0].trim(), parts[1].trim());
     }
 
     public String getName() {
