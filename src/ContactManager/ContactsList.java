@@ -15,7 +15,14 @@ public class ContactsList {
     }
 
     public void printContacts() {
-        System.out.println("\t\tContact List");
+        System.out.print("""
+                  _____            _             _       \s
+                 / ____|          | |           | |      \s
+                | |     ___  _ __ | |_ __ _  ___| |_ ___ \s
+                | |    / _ \\| '_ \\| __/ _` |/ __| __/ __|\s
+                | |___| (_) | | | | || (_| | (__| |_\\__ \\\s
+                 \\_____\\___/|_| |_|\\__\\__,_|\\___|\\__|___/\s
+                """);
         System.out.println("-----------------------------------");
         String name = "Name";
         String Number = "Number";

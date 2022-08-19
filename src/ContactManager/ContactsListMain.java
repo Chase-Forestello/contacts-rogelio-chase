@@ -32,6 +32,13 @@ public class ContactsListMain {
 //        contactList.addContact(John);
 //        contactList.printContacts();
         int choice = INVALID_CHOICE;
+        System.out.print("""
+                  __ _  _  _ ___ _   __ ___   _   _  _  _  _  _   __ ___ ___\s
+                 / _/ \\| \\| |_ _/ \\ / _|_ _| | \\_/ |/ \\| \\| |/ \\ / _| __| o \\
+                ( (( o | \\\\ || | o ( (_ | |  | \\_/ | o | \\\\ | o ( |_| _||   /
+                 \\__\\_/|_|\\_||_|_n_|\\__||_|  |_| |_|_n_|_|\\_|_n_|\\__|___|_|\\\\
+                                                                            \s
+                """);
         while (!Objects.equals(choice, EXIT_CHOICE)) {
             printMenu();
             choice = input.getInt("Enter an option (1, 2, 3, 4 or 5): ");
