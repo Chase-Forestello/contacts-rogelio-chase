@@ -5,14 +5,17 @@ import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Objects;
 
+import static ContactManager.ContactsListMain.addAContact;
+
 public class ContactsListMain {
     public static final int INVALID_CHOICE = -1;
     public static final int EXIT_CHOICE = 5;
+    private static ContactsList contactList = ContactsGateway.readFromFile();
 
     public static void main(String[] args) {
         Input input = new Input();
 
-        ContactsList contactList = ContactsGateway.readFromFile();
+//        ContactsList contactList = ContactsGateway.readFromFile();
 
 // Messing with reading data from file...
 //        String test = """
@@ -37,20 +40,25 @@ public class ContactsListMain {
                     contactList.printContacts();
                 }
                 case 2 -> {
-                    String name = input.getString("Enter contact name: ");
-                    String contactNumber = input.getString("Enter contact number: ");
-                    String number = contactNumber.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3");
-                    Contact newContact = new Contact(name, number);
-                    if (contactList.toStringList().toString().contains(name)) {
-                        System.out.println("Contact already exists!");
-                        String overwrite = input.getString("Overwrite contact: " + name + "? [ y , n ]");
-                        if (overwrite.equalsIgnoreCase("y")){
-                            contactList.removeContact(name);
-                            contactList.addContact(newContact);
-                        }
-                    } else {
-                        contactList.addContact(newContact);
-                    }
+                    contactList.addContact(addAContact());
+//                    String name = input.getString("Enter contact name: ");
+//                    String contactNumber = input.getString("Enter contact number: ");
+//                    // Add conditional to check size of number, 10 or 7 digits, and format accordingly...
+//                    String number = contactNumber.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3");
+//                    Contact newContact = new Contact(name, number);
+//                    if (contactList.toStringList().toString().contains(name)) {
+//                        System.out.println("Contact already exists!");
+//                        String overwrite = input.getString("Overwrite contact: " + name + "? [ y , n ]");
+//                    // If the answer is No allow the user to enter the information again.
+//                        if (overwrite.equalsIgnoreCase("y")){
+//                            contactList.removeContact(name);
+//                            contactList.addContact(newContact);
+//                        } else {
+//                            addAContact();
+//                        }
+//                    } else {
+//                        contactList.addContact(newContact);
+//                    }
                 }
                 case 3 -> {
                     String name = input.getString("What contact would you like to search? ");
@@ -87,5 +95,26 @@ public class ContactsListMain {
                 Enter an option (1, 2, 3, 4 or 5):
                             
                 """);
+    }
+
+    public static Contact addAContact() {
+        Input input = new Input();
+        String name = input.getString("Enter contact name: ");
+        String contactNumber = input.getString("Enter contact number: ");
+        // Add conditional to check size of number, 10 or 7 digits, and format accordingly...
+        String number = contactNumber.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3");
+        Contact newContact = new Contact(name, number);
+        if (ContactsListMain.contactList.toStringList().toString().contains(name)) {
+            System.out.println("Contact already exists!");
+            String overwrite = input.getString("Overwrite contact: " + name + "? [ y , n ]");
+            // If the answer is No allow the user to enter the information again.
+            if (overwrite.equalsIgnoreCase("y")){
+                contactList.removeContact(name);
+                System.out.println("Removed " + name);
+            } else {
+                return addAContact();
+            }
+        }
+        return newContact;
     }
 }
