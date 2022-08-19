@@ -16,6 +16,7 @@ public class ContactsList {
 
     public void printContacts() {
         System.out.println("\t\tContact List");
+        System.out.println("-------------------------------------");
         String name = "Name";
         String Number = "Number";
         System.out.println(String.format("  %-12s" + "|" + "  %-14s  " + "|", name, Number));
@@ -23,6 +24,7 @@ public class ContactsList {
         for (Contact contact : contacts) {
             System.out.println(contact);
         }
+        System.out.println("-------------------------------------");
     }
 
     public Contact removeContact(String contactName) {

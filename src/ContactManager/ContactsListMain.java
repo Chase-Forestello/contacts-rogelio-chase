@@ -34,7 +34,7 @@ public class ContactsListMain {
         int choice = INVALID_CHOICE;
         while (!Objects.equals(choice, EXIT_CHOICE)) {
             printMenu();
-            choice = input.getInt("What would you like to do?");
+            choice = input.getInt("What would you like to do?: ");
             switch (choice) {
                 case 1 -> {
                     contactList.printContacts();
@@ -61,20 +61,23 @@ public class ContactsListMain {
 //                    }
                 }
                 case 3 -> {
-                    String name = input.getString("What contact would you like to search? ");
+                    String name = input.getString("What contact would you like to search for?: ");
                     if (contactList.getContactByName(name) == null) {
-                        System.out.println("That contact does not exist!");
+                        System.out.println("*---------That contact does not exist---------*");
                     } else {
+                        System.out.println("-------------------------------------");
                         System.out.println(contactList.getContactByName(name));
+                        System.out.println("-------------------------------------");
                     }
-
                 }
                 case 4 -> {
-                    String name = input.getString("What contact would you like to delete? ");
+                    String name = input.getString("What contact would you like to delete?: ");
                     if (contactList.removeContact(name) == null) {
-                        System.out.println("That contact does not exist!");
+                        System.out.println("*---------That contact does not exist---------*");
                     } else {
                         contactList.removeContact(name);
+                        System.out.println("-------------------------------------");
+                        System.out.println("Removed " + name);
                     }
                 }
             }
@@ -85,15 +88,14 @@ public class ContactsListMain {
 
     private static void printMenu() {
         System.out.print("""
-                What would you like to do?
-                                
+                ********************************
                 1. View contacts.
                 2. Add a new contact.
                 3. Search a contact by name.
                 4. Delete an existing contact.
                 5. Exit.
                 Enter an option (1, 2, 3, 4 or 5):
-                            
+                ********************************
                 """);
     }
 
@@ -101,20 +103,31 @@ public class ContactsListMain {
         Input input = new Input();
         String name = input.getString("Enter contact name: ");
         String contactNumber = input.getString("Enter contact number: ");
+        System.out.println("-------------------------------------");
+        String number = null;
         // Add conditional to check size of number, 10 or 7 digits, and format accordingly...
-        String number = contactNumber.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3");
+        if (contactNumber.toCharArray().length == 10) {
+            number = contactNumber.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3");
+        } else if (contactNumber.toCharArray().length == 7) {
+            number = contactNumber.replaceFirst("(\\d{3})(\\d+)", "$1-$2");
+        } else {
+            System.out.println("*---------Incorrect number format---------*");
+            return addAContact();
+        }
         Contact newContact = new Contact(name, number);
         if (ContactsListMain.contactList.toStringList().toString().contains(name)) {
-            System.out.println("Contact already exists!");
+            System.out.println("*---------Contact already exists---------*");
             String overwrite = input.getString("Overwrite contact: " + name + "? [ y , n ]");
             // If the answer is No allow the user to enter the information again.
-            if (overwrite.equalsIgnoreCase("y")){
+            if (overwrite.equalsIgnoreCase("y")) {
                 contactList.removeContact(name);
-                System.out.println("Removed " + name);
+                System.out.println("Overwriting " + name);
             } else {
                 return addAContact();
             }
         }
+        System.out.println("Added " + name + " to contacts");
+        System.out.println("-------------------------------------");
         return newContact;
     }
 }
