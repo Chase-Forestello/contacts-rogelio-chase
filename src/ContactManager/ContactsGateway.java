@@ -40,10 +40,10 @@ public class ContactsGateway {
         }
 
         // 2. read item strings from file
-        List<String> contactsStrings = readItemStringsFromFilePath(filePath);
+        List<String> contactStrings = readItemStringsFromFilePath(filePath);
 
         // 3. make items from the items strings and put them in the groceryList
-        for(String contactsString : contactsStrings) {
+        for(String contactsString : contactStrings) {
             Contact contacts = Contact.createFromString(contactsString);
             list.addContact(contacts);
         }
@@ -62,14 +62,10 @@ public class ContactsGateway {
         try {
             Path folder = Paths.get("contacts_list");
             Path file = Paths.get("contacts_list", "data.txt");
-            if (Files.exists(folder)) {
-                System.out.println("Hey! This folder already exists.");
-            } else {
+            if (!Files.exists(folder)) {
                 Files.createDirectories(folder);
             }
-            if (Files.exists(file)) {
-                System.out.println("Hey! This file already exists.");
-            } else {
+            if (!Files.exists(file)) {
                 Files.createFile(file);
             }
             return file;

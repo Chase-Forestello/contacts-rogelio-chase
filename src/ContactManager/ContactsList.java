@@ -6,7 +6,7 @@ import java.util.List;
 public class ContactsList {
     private ArrayList<Contact> contacts;
 
-    public ContactsList () {
+    public ContactsList() {
         contacts = new ArrayList<>();
     }
 
@@ -15,26 +15,32 @@ public class ContactsList {
     }
 
     public void printContacts() {
-        System.out.println("Contact List:");
+        System.out.println("\t\tContact List");
+        String name = "Name";
+        String Number = "Number";
+        System.out.println(String.format("  %-12s" + "|" + "  %-14s  " + "|", name, Number));
+        System.out.println("-------------------------------------");
         for (Contact contact : contacts) {
             System.out.println(contact);
         }
     }
 
-    public void removeContact (String contactName) {
+    public Contact removeContact(String contactName) {
         //find index of contact with contactName
         int index = getIndexByContactName(contactName);
         if (index > -1) {
-            contacts.remove(index);
+            return contacts.remove(index);
+        } else {
+            return null;
         }
     }
 
-    public int getIndexByContactName (String contactName) {
+    public int getIndexByContactName(String contactName) {
         int index = -1;
-        for (int i = 0; i < contacts.size() ; i++) {
+        for (int i = 0; i < contacts.size(); i++) {
             Contact contact = contacts.get(i);
             String contactNameInList = contact.getName();
-            if (contactNameInList.equalsIgnoreCase(contactName)){
+            if (contactNameInList.equalsIgnoreCase(contactName)) {
                 index = i;
             }
         }
@@ -49,7 +55,7 @@ public class ContactsList {
         return contactsString;
     }
 
-    public Contact getContactByName (String contactName){
+    public Contact getContactByName(String contactName) {
         int index = getIndexByContactName(contactName);
 
         if (index > -1) {

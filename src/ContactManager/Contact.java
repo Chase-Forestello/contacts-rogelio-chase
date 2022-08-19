@@ -8,8 +8,9 @@ public class Contact {
         this.phoneNumber = phoneNumber;
         this.name = name;
     }
+
     public static Contact createFromString(String contactString) {
-        String [] parts = contactString.split("\\|");
+        String[] parts = contactString.split("\\|");
         return new Contact(parts[0].trim(), parts[1].trim());
     }
 
@@ -31,6 +32,6 @@ public class Contact {
 
     @Override
     public String toString() {
-        return name + "|" + phoneNumber;
+        return String.format( "  %-12s" + "|" + "  %-14s  " + "|", name, phoneNumber );
     }
 }
