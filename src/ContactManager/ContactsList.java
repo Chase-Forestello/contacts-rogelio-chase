@@ -16,15 +16,15 @@ public class ContactsList {
 
     public void printContacts() {
         System.out.println("\t\tContact List");
-        System.out.println("-------------------------------------");
+        System.out.println("-----------------------------------");
         String name = "Name";
         String Number = "Number";
-        System.out.println(String.format("  %-12s" + "|" + "  %-14s  " + "|", name, Number));
-        System.out.println("-------------------------------------");
+        System.out.printf("|  " + "%-12s" + "|" + "  %-14s  " + "|%n", name, Number);
+        System.out.println("-----------------------------------");
         for (Contact contact : contacts) {
-            System.out.println(contact);
+            System.out.println("|" + contact);
         }
-        System.out.println("-------------------------------------");
+        System.out.println("-----------------------------------");
     }
 
     public Contact removeContact(String contactName) {

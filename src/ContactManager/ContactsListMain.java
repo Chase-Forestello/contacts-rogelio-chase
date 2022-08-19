@@ -34,7 +34,7 @@ public class ContactsListMain {
         int choice = INVALID_CHOICE;
         while (!Objects.equals(choice, EXIT_CHOICE)) {
             printMenu();
-            choice = input.getInt("What would you like to do?: ");
+            choice = input.getInt("Enter an option (1, 2, 3, 4 or 5): ");
             switch (choice) {
                 case 1 -> {
                     contactList.printContacts();
@@ -78,6 +78,7 @@ public class ContactsListMain {
                         contactList.removeContact(name);
                         System.out.println("-------------------------------------");
                         System.out.println("Removed " + name);
+                        System.out.println("-------------------------------------");
                     }
                 }
             }
@@ -94,7 +95,6 @@ public class ContactsListMain {
                 3. Search a contact by name.
                 4. Delete an existing contact.
                 5. Exit.
-                Enter an option (1, 2, 3, 4 or 5):
                 ********************************
                 """);
     }
