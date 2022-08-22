@@ -56,6 +56,10 @@ public class ContactsList {
         return index;
     }
 
+    public ArrayList<Contact> getContacts() {
+        return contacts;
+    }
+
     public List<String> toStringList() {
         List<String> contactsString = new ArrayList<>();
         for (Contact contact : contacts) {

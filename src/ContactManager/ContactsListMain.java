@@ -1,7 +1,11 @@
 package ContactManager;
 
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 import java.lang.reflect.Array;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,7 +13,7 @@ import static ContactManager.ContactsListMain.addAContact;
 
 public class ContactsListMain {
     public static final int INVALID_CHOICE = -1;
-    public static final int EXIT_CHOICE = 5;
+    public static final int EXIT_CHOICE = 6;
     private static ContactsList contactList = ContactsGateway.readFromFile();
 
     public static void main(String[] args) {
@@ -31,22 +35,27 @@ public class ContactsListMain {
 //        contactList.addContact(Chase);
 //        contactList.addContact(John);
 //        contactList.printContacts();
+        String contactsTxt = """
+                 _____             _             _      \s
+                /  __ \\           | |           | |     \s
+                | /  \\/ ___  _ __ | |_ __ _  ___| |_ ___\s
+                | |    / _ \\| '_ \\| __/ _` |/ __| __/ __|
+                | \\__/ (_) | | | | || (_| | (__| |_\\__ \\
+                 \\____/\\___/|_| |_|\\__\\__,_|\\___|\\__|___/
+                                                        \s
+                """;
         int choice = INVALID_CHOICE;
-        System.out.print("""
-                  __ _  _  _ ___ _   __ ___   _   _  _  _  _  _   __ ___ ___\s
-                 / _/ \\| \\| |_ _/ \\ / _|_ _| | \\_/ |/ \\| \\| |/ \\ / _| __| o \\
-                ( (( o | \\\\ || | o ( (_ | |  | \\_/ | o | \\\\ | o ( |_| _||   /
-                 \\__\\_/|_|\\_||_|_n_|\\__||_|  |_| |_|_n_|_|\\_|_n_|\\__|___|_|\\\\
-                                                                            \s
-                """);
+        System.out.println(contactsTxt);
         while (!Objects.equals(choice, EXIT_CHOICE)) {
             printMenu();
-            choice = input.getInt("Enter an option (1, 2, 3, 4 or 5): ");
+            choice = input.getInt("Enter an option (1, 2, 3, 4, 5 or 6): ");
             switch (choice) {
                 case 1 -> {
+                    Toolkit.getDefaultToolkit().beep();
                     contactList.printContacts();
                 }
                 case 2 -> {
+                    Toolkit.getDefaultToolkit().beep();
                     contactList.addContact(addAContact());
 //                    String name = input.getString("Enter contact name: ");
 //                    String contactNumber = input.getString("Enter contact number: ");
@@ -67,17 +76,25 @@ public class ContactsListMain {
 //                        contactList.addContact(newContact);
 //                    }
                 }
+                // May be better to use .contains (requires strings...toStringList?)
+                // so the program does not rely on an EXACT match but rather just a containing
+                // string match. ie "Matthew" returns "Matthew" and "Matthew B"
+                // need list of strings of names (and numbers for number search functionality
                 case 3 -> {
+                    Toolkit.getDefaultToolkit().beep();
                     String name = input.getString("What contact would you like to search for?: ");
-                    if (contactList.getContactByName(name) == null) {
-                        System.out.println("*---------That contact does not exist---------*");
-                    } else {
-                        System.out.println("-------------------------------------");
-                        System.out.println(contactList.getContactByName(name));
-                        System.out.println("-------------------------------------");
+                    for (int i = 0; i < contactList.toStringList().toArray().length; i++) {
+                        if (contactList.toStringList().toArray()[i].toString().toLowerCase().contains(name.toLowerCase())) {
+                            System.out.println("-------------------------------------");
+                            System.out.println(contactList.toStringList().toArray()[i]);
+                            System.out.println("-------------------------------------");
+                        } else {
+                            System.out.println("*---------That contact does not exist---------*");
+                        }
                     }
                 }
                 case 4 -> {
+                    Toolkit.getDefaultToolkit().beep();
                     String name = input.getString("What contact would you like to delete?: ");
                     if (contactList.removeContact(name) == null) {
                         System.out.println("*---------That contact does not exist---------*");
@@ -86,6 +103,20 @@ public class ContactsListMain {
                         System.out.println("-------------------------------------");
                         System.out.println("Removed " + name);
                         System.out.println("-------------------------------------");
+                    }
+                }
+                case 5 -> {
+                    Toolkit.getDefaultToolkit().beep();
+                    String deleteAll = input.getString("Are you sure you want to delete all contacts? [ y , n ]: ");
+                    if (deleteAll.equalsIgnoreCase("y")) {
+                        for (int i = 0; i < contactList.toStringList().size(); i++) {
+                            contactList = new ContactsList();
+                            System.out.println("-------------------------------------");
+                            System.out.println("All contacts removed");
+                            System.out.println("-------------------------------------");
+                        }
+                    } else {
+                        printMenu();
                     }
                 }
             }
@@ -101,7 +132,8 @@ public class ContactsListMain {
                 2. Add a new contact.
                 3. Search a contact by name.
                 4. Delete an existing contact.
-                5. Exit.
+                5. Delete all contacts
+                6. Exit.
                 ********************************
                 """);
     }
