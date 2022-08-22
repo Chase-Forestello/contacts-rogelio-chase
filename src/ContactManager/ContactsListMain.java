@@ -1,3 +1,4 @@
+// Main program class
 package ContactManager;
 
 
@@ -6,6 +7,7 @@ import java.awt.*;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,15 +48,18 @@ public class ContactsListMain {
                 """;
         int choice = INVALID_CHOICE;
         System.out.println(contactsTxt);
+        // Begin program with menu prompt connected to switch to handle each input
         while (!Objects.equals(choice, EXIT_CHOICE)) {
             printMenu();
             choice = input.getInt("Enter an option (1, 2, 3, 4, 5 or 6): ");
             switch (choice) {
                 case 1 -> {
+                    // Prints all contacts
                     Toolkit.getDefaultToolkit().beep();
                     contactList.printContacts();
                 }
                 case 2 -> {
+                    // Adds contact if format is correct
                     Toolkit.getDefaultToolkit().beep();
                     contactList.addContact(addAContact());
 //                    String name = input.getString("Enter contact name: ");
@@ -81,6 +86,7 @@ public class ContactsListMain {
                 // string match. ie "Matthew" returns "Matthew" and "Matthew B"
                 // need list of strings of names (and numbers for number search functionality
                 case 3 -> {
+                    // Allows for partial search inputs that are not case sensitive
                     Toolkit.getDefaultToolkit().beep();
                     String name = input.getString("What contact would you like to search for?: ");
                     for (int i = 0; i < contactList.toStringList().toArray().length; i++) {
@@ -88,12 +94,14 @@ public class ContactsListMain {
                             System.out.println("-------------------------------------");
                             System.out.println(contactList.toStringList().toArray()[i]);
                             System.out.println("-------------------------------------");
-                        } else {
-                            System.out.println("*---------That contact does not exist---------*");
                         }
+                    }
+                    if (!Arrays.toString(contactList.toStringList().toArray()).toLowerCase().contains(name.toLowerCase())) {
+                        System.out.println("*---------That contact does not exist---------*");
                     }
                 }
                 case 4 -> {
+                    // Deletes specified contact
                     Toolkit.getDefaultToolkit().beep();
                     String name = input.getString("What contact would you like to delete?: ");
                     if (contactList.removeContact(name) == null) {
@@ -106,6 +114,7 @@ public class ContactsListMain {
                     }
                 }
                 case 5 -> {
+                    // Deletes all contacts by initiating a new ContactList
                     Toolkit.getDefaultToolkit().beep();
                     String deleteAll = input.getString("Are you sure you want to delete all contacts? [ y , n ]: ");
                     if (deleteAll.equalsIgnoreCase("y")) {
@@ -115,12 +124,13 @@ public class ContactsListMain {
                             System.out.println("All contacts removed");
                             System.out.println("-------------------------------------");
                         }
-                    } else {
-                        printMenu();
                     }
                 }
+                default -> {
+                    ContactsGateway.writeToFile(contactList);
+                    System.out.println("File written");
+                }
             }
-            ContactsGateway.writeToFile(contactList);
         }
     }
 

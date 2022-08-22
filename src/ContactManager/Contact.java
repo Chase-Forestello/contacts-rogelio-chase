@@ -1,3 +1,4 @@
+// Contact constructor class
 package ContactManager;
 
 public class Contact {

@@ -14,6 +14,7 @@ public class ContactsList {
         contacts.add(contact);
     }
 
+    // Method to print all contacts in evenly spaced table
     public void printContacts() {
         System.out.print("""
                   _____            _             _       \s
@@ -34,6 +35,7 @@ public class ContactsList {
         System.out.println("-----------------------------------");
     }
 
+    // Method to remove contact by name
     public Contact removeContact(String contactName) {
         //find index of contact with contactName
         int index = getIndexByContactName(contactName);
@@ -44,6 +46,7 @@ public class ContactsList {
         }
     }
 
+    // Method to get INDEX of contact by name
     public int getIndexByContactName(String contactName) {
         int index = -1;
         for (int i = 0; i < contacts.size(); i++) {
@@ -56,10 +59,12 @@ public class ContactsList {
         return index;
     }
 
+    // Returns arraylist of contacts
     public ArrayList<Contact> getContacts() {
         return contacts;
     }
 
+    // Convert contacts array list to string list of contacts for writing to file
     public List<String> toStringList() {
         List<String> contactsString = new ArrayList<>();
         for (Contact contact : contacts) {
